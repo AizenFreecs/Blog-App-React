@@ -53,7 +53,7 @@ const NavLinks = ({ vertical }) => {
             <li key={item.name}>
               <button
                 onClick={() => navigate(item.slug)}
-                className={`inline-block px-6 py-2 duration-200 hover:bg-gradient-to-b from-white to-primary-200 rounded-full hover:drop-shadow-lg transition  ease-in-out focus:outline-none`}
+                className={`inline-block px-6 py-2 duration-200 hover:bg-gradient-to-b from-white to-primary-200 rounded-full hover:drop-shadow-lg transition text-primary-600  ease-in-out focus:outline-none `}
               >
                 {item.name}
               </button>

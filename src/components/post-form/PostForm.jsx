@@ -13,6 +13,8 @@ function PostForm({ post }) {
         slug: post && post.$id ? post.$id : "",
         content: post?.content || "",
         status: post?.status || "active",
+        createdOn: post?.createdOn || "",
+        author: post?.author || ""
       },
     });
 
@@ -20,6 +22,14 @@ function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    const currentDate = new Date().toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    });
+    data.createdOn = currentDate;
+    data.author = userData.name;
+    
     if (post) {
       const file = data.image[0]
         ? appwriteService.uploadFile(data.image[0])
@@ -97,7 +107,7 @@ function PostForm({ post }) {
           defaultValue={getValues("content")}
         />
       </div>
-      <div className=" w-full md:w-1/3 px-2 mt-4">
+      <div className=" w-full md:w-1/3 px-2 mt-4 md:mt-0">
         <NmInput
           label="Featured Image :"
           type="file"
@@ -105,6 +115,7 @@ function PostForm({ post }) {
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
         />
+        {/* <input type="hidden" {...register("createdOn",{required: !post})} /> */}
         {post && (
           <div className="w-full mb-4">
             <img

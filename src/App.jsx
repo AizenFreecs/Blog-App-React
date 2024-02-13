@@ -6,7 +6,7 @@ function App() {
   
 
   return (
-    <div className='w-full min-h-screen flex flex-wrap content-between'>
+    <div className='w-full h-full flex flex-wrap content-between'>
       <div className='w-full block'>
         <Header />
         <Outlet />

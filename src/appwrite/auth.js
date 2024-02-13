@@ -1,14 +1,16 @@
 import conf from "../config/config";
-
+import { useDispatch } from "react-redux";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
   client = new Client();
   account;
-
+  isLoggedIn = false
   constructor() {
     this.client.setEndpoint(conf.appwriteUrl).setProject(conf.projectId);
     this.account = new Account(this.client);
+    this.isLoggedIn = !!localStorage.getItem("appwriteLoginToken")
+
   }
 
   async createAccount({ name, email, password }) {
@@ -31,7 +33,12 @@ export class AuthService {
 
   async login({ email, password }) {
     try {
-      return await this.account.createEmailSession(email, password);
+      const session = await this.account.createEmailSession(email, password);
+      if (session) {
+        localStorage.setItem("appwriteLoginToken", session.$id)
+        this.isLoggedIn = true;
+        return session
+      }
     } catch (error) {
       throw error;
     }
@@ -48,7 +55,9 @@ export class AuthService {
 
   async logout() {
     try {
-      return await this.account.deleteSessions();
+      await this.account.deleteSessions()
+      localStorage.removeItem("appwriteLoginToken")
+      this.isLoggedIn =false
     } catch (error) {
       throw error;
     }
