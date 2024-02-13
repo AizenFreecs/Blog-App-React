@@ -5,11 +5,10 @@ import { Client, Account, ID } from "appwrite";
 export class AuthService {
   client = new Client();
   account;
-  isLoggedIn = false
+  
   constructor() {
     this.client.setEndpoint(conf.appwriteUrl).setProject(conf.projectId);
     this.account = new Account(this.client);
-    this.isLoggedIn = !!localStorage.getItem("appwriteLoginToken")
 
   }
 
@@ -33,12 +32,7 @@ export class AuthService {
 
   async login({ email, password }) {
     try {
-      const session = await this.account.createEmailSession(email, password);
-      if (session) {
-        localStorage.setItem("appwriteLoginToken", session.$id)
-        this.isLoggedIn = true;
-        return session
-      }
+      return await this.account.createEmailSession(email, password);
     } catch (error) {
       throw error;
     }
@@ -55,9 +49,7 @@ export class AuthService {
 
   async logout() {
     try {
-      await this.account.deleteSessions()
-      localStorage.removeItem("appwriteLoginToken")
-      this.isLoggedIn =false
+      return await this.account.deleteSessions()
     } catch (error) {
       throw error;
     }

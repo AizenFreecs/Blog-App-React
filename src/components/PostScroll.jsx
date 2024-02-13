@@ -31,12 +31,12 @@ function PostScroll() {
       />
       <div
         ref={sliderRef}
-        className="w-full h-full flex items-center overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
+        className="flex items-center justify-between overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
       >
         {posts.slice(0, 10).map((post) => (
           <div
             key={post.$id}
-            className="flex p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 items-center justify-center"
+            className="flex p-2 w-full  items-center justify-center"
           >
             <Postcard {...post} />
           </div>

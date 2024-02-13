@@ -10,7 +10,6 @@ import Login from './Login'
 
 import AuthLayout from './AuthLayout'
 import PostForm from './post-form/PostForm'
-import TagSearchBox from './search/TagSearchBox'
 import NmInput from "./nmComp/NmInput";
 import NmButton from "./nmComp/NmButton";
 import NmSelect from "./nmComp/NmSelect";
@@ -29,7 +28,6 @@ export {
     Login,
     AuthLayout,
     PostForm,
-    TagSearchBox,
     NmInput,
     NmButton,
     NmSelect,
